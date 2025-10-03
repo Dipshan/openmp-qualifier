@@ -1,0 +1,65 @@
+# Compiled object files
+*.o
+*.obj
+
+# Precompiled headers
+*.gch
+*.pch
+
+# Compiled dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Executables
+*.exe
+bbp
+bss
+msp
+mss
+qsp
+qss
+reference
+
+# Build directories
+build/
+Debug/
+Release/
+x64/
+x86/
+*.sln
+*.vcxproj*
+*.vcproj
+cmake_install.cmake
+CMakeCache.txt
+
+# IDE files
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Log files
+*.log
+
+# Backup files
+*.bak
+*.backup
+
+# Temporary files
+*.tmp
+*.temp
+
+# CLion specific
+cmake-build-*/
