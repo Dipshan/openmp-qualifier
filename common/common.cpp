@@ -1,13 +1,13 @@
 #include "common.h"
 
-const int MAX_ELEMENTS = 50000;
-const int MAX_RANDOM_VALUE = 50000;
+const int MAX_ELEMENTS = 10000000;
+const int MAX_RANDOM_VALUE = 10000000;
 
 int *randNumArray(const int size, const int seed) {
     srand(seed);
     int *array = new int[size];
     for (int i = 0; i < size; i++) {
-        array[i] = (std::rand() % MAX_RANDOM_VALUE) + 1; // Numbers between 1-50,000
+        array[i] = (std::rand() % MAX_RANDOM_VALUE) + 1; // Numbers between 1-10,000,000
     }
     return array;
 }
