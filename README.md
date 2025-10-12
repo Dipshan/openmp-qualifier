@@ -55,24 +55,24 @@ The project provides the following functionalities:
 ### Project Structure:
 ```
 openmp_qualifier/  
-├── CMakeLists.txt              // CMake build configuration  
-├── Makefile                    // Make build configuration  
-├── README                      // Project documentation (this file)  
-├── common.h                    // Common utilities and headers  
-├── common.cpp                  // Common function implementations
 ├── bubbleSort/  
-│   ├── bss.cpp                 // Serial Bubble Sort implementation  
-│   └── bsp.cpp                 // Parallel Bubble Sort implementation
-├── quickSort/  
-│   ├── qss.cpp                 // Serial Quick Sort implementation  
-│   └── qsp.cpp                 // Parallel Quick Sort implementation  
-│
+│     ├── bsp.cpp               // Parallel Bubble Sort implementation
+│     ├── bss.cpp               // Serial Bubble Sort implementation
+├── common/
+│     ├── common.cpp            // Common function implementations
+│     ├── common.h              // Common utilities and headers  
 ├── mergeSort/  
-│   ├── mss.cpp                 // Serial Merge Sort implementation  
-│   └── msp.cpp                 // Parallel Merge Sort implementation  
-│
-├── reference.cpp               // STL sort reference implementation  
-└── report.pdf                  // Performance analysis report  
+│     ├── msp.cpp               // Parallel Merge Sort implementation  
+│     ├── mss.cpp               // Serial Merge Sort implementation  
+├── quickSort/  
+│     ├── qsp.cpp               // Parallel Quick Sort implementation  
+│     ├── qss.cpp               // Serial Quick Sort implementation  
+├── CMakeLists.txt              // CMake build configuration  
+├── main.cpp
+├── Makefile                    // Make build configuration  
+├── README.md                   // Project documentation (this file)  
+├── reference.cpp               // STL sort reference implementation
+├── sort.h
 ```
 
 ---
@@ -81,12 +81,12 @@ openmp_qualifier/
 
 The project builds 7 separate executables:
 
-- bss - Serial Bubble Sort
-- bbp - Parallel Bubble Sort
-- qss - Serial Quick Sort
-- qsp - Parallel Quick Sort
-- mss - Serial Merge Sort
-- msp - Parallel Merge Sort
+- bss - Bubble Sort Serial
+- bsp - Bubble Sort Parallel
+- qss - Quick Sort Serial
+- qsp - Quick Sort Parallel
+- mss - Merge Sort Serial
+- msp - Merge Sort Parallel
 - reference - STL Sort Reference
 
 ---
@@ -105,7 +105,7 @@ Using CLion IDE (Recommended)
 ## Run individual sorting algorithms
 ```
 ./bss 10000 42           // Serial Bubble Sort with 10,000 elements  
-./bbp 10000 42           // Parallel Bubble Sort with 10,000 elements
+./bsp 10000 42           // Parallel Bubble Sort with 10,000 elements
 ./qss 100000 42          // Serial Quick Sort with 100,000 elements  
 ./qsp 100000 42          // Parallel Quick Sort with 100,000 elements
 ./mss 100000 42          // Serial Merge Sort with 100,000 elements
