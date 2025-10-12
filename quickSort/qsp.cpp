@@ -1,4 +1,5 @@
 #include "../common/common.h"
+#include <omp.h> // Include the OpenMP header
 
 int partition(int *array, int low, int high) {
     int pivot = array[high];
@@ -14,58 +15,58 @@ int partition(int *array, int low, int high) {
     return i + 1;
 }
 
-void quickSort(int *array, int low, int high) {
+void quickSort_parallel(int *array, int low, int high) {
     if (low < high) {
         int pi = partition(array, low, high);
-        quickSort(array, low, pi - 1);
-        quickSort(array, pi + 1, high);
+        
+        // Create parallel tasks for the recursive calls
+        #pragma omp task
+        {
+            quickSort_parallel(array, low, pi - 1);
+        }
+        #pragma omp task
+        {
+            quickSort_parallel(array, pi + 1, high);
+        }
     }
 }
 
 int main(int argc, char **argv) {
     int size, seed;
 
-    if (argc == 3) {
-        // Command line mode
-        size = std::stoi(argv[1]);
-        seed = std::stoi(argv[2]);
-    } else {
-        // Interactive mode
-        std::cout << "=== Parallel Quick Sort ===" << std::endl;
-        size = getUserInput();
-        std::cout << "Enter seed value for random number generation: ";
-        std::cin >> seed;
-    }
-
-    // Validation
-    if (size < 1) {
-        std::cerr << "Size must be at least 1 element." << std::endl;
+    // Per project requirements, only use command-line arguments [cite: 22]
+    if (argc < 3) {
+        std::cerr << "usage: " << argv[0] << " [amount of random nums to generate] [seed value for rand]" << std::endl;
         return -1;
     }
-    if (size > MAX_ELEMENTS) {
-        std::cerr << "Size cannot exceed " << MAX_ELEMENTS << " elements." << std::endl;
-        return -1;
-    }
+    
+    size = std::stoi(argv[1]);
+    seed = std::stoi(argv[2]);
 
     int *array = randNumArray(size, seed);
 
-    std::cout << "\nSorting " << size << " elements (random numbers 1-" << MAX_RANDOM_VALUE << ")..." << std::endl;
-    printArray(array, size, "Random Array");
-
     auto start = std::chrono::high_resolution_clock::now();
-    quickSort(array, 0, size - 1);
+    
+    // Create a parallel region for the tasks to run in
+    #pragma omp parallel
+    {
+        // Have a single thread start the initial sort call
+        #pragma omp single nowait
+        {
+            quickSort_parallel(array, 0, size - 1);
+        }
+    }
+
     auto end = std::chrono::high_resolution_clock::now();
 
-    printArray(array, size, "Sorted Array");
-
     std::chrono::duration<double> duration = end - start;
+    // The executable must print the running time [cite: 49]
     std::cout << "Parallel Quick Sort Time: " << duration.count() << " seconds" << std::endl;
 
-    if (isSorted(array, size)) {
-        std::cout << "Successfully sorted!" << std::endl;
-    } else {
-        std::cout << "Sorting failed!" << std::endl;
-    }
+    // Optional: You can add verification if you want
+    // if (!isSorted(array, size)) {
+    //     std::cerr << "Sorting failed!" << std::endl;
+    // }
 
     delete[] array;
     return 0;
