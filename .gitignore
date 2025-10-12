@@ -13,7 +13,7 @@
 
 # Executables
 *.exe
-bbp
+bsp
 bss
 msp
 mss
