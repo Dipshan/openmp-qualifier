@@ -8,34 +8,34 @@ CXXFLAGS = -Wall -std=c++14 -O3 -Icommon
 # OpenMP flag
 OMPFLAGS = -fopenmp
 
-# The default target builds ALL executables [cite: 48]
-all: bss bbp qss qsp mss msp reference
+# The default target builds ALL executables
+all: bss bsp qss qsp mss msp reference
 
-# --- Bubble Sort Targets ---
+# Bubble Sort Targets
 bss: bubbleSort/bss.cpp common/common.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-bbp: bubbleSort/bsp.cpp common/common.cpp
+bsp: bubbleSort/bsp.cpp common/common.cpp
 	$(CXX) $(CXXFLAGS) $(OMPFLAGS) -o $@ $^
 
-# --- Quick Sort Targets ---
+# Quick Sort Targets
 qss: quickSort/qss.cpp common/common.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 qsp: quickSort/qsp.cpp common/common.cpp
 	$(CXX) $(CXXFLAGS) $(OMPFLAGS) -o $@ $^
 
-# --- Merge Sort Targets ---
+# Merge Sort Targets
 mss: mergeSort/mss.cpp common/common.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 msp: mergeSort/msp.cpp common/common.cpp
 	$(CXX) $(CXXFLAGS) $(OMPFLAGS) -o $@ $^
 
-# --- Reference Target ---
+# Reference Target
 reference: reference.cpp common/common.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-# --- Clean Target ---
+# Clean Targets
 clean:
-	rm -f bss bbp qss qsp mss msp reference
+	rm -f bss bsp qss qsp mss msp reference
