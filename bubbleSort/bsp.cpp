@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
         size = std::stoi(argv[1]);
         seed = std::stoi(argv[2]);
     } else {
-        std::cout << "=== Parallel Bubble Sort ===" << std::endl;
+        std::cout << "Parallel Bubble Sort" << std::endl;
         size = getUserInput();
         std::cout << "Enter seed value for random number generation: ";
         std::cin >> seed;

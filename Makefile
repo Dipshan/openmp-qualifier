@@ -1,41 +1,49 @@
-# Compiler
 CXX = g++
-
-# Compiler flags - Icommon is needed if your common files are in a 'common' directory
-# The -O3 flag is a stronger optimization than -O2, good for performance tests
 CXXFLAGS = -Wall -std=c++14 -O3 -Icommon
-
-# OpenMP flag
 OMPFLAGS = -fopenmp
 
-# The default target builds ALL executables
-all: bss bsp qss qsp mss msp reference
+COMMON_SRCS = common/common.cpp
 
-# Bubble Sort Targets
-bss: bubbleSort/bss.cpp common/common.cpp
+all: bsp bss msp mss qsp qss reference
+
+serial: bss mss qss
+
+parallel: bsp msp qsp
+
+# Bubble Sort Executables
+bsp: bubbleSort/bsp.cpp $(COMMON_SRCS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-bsp: bubbleSort/bsp.cpp common/common.cpp
-	$(CXX) $(CXXFLAGS) $(OMPFLAGS) -o $@ $^
-
-# Quick Sort Targets
-qss: quickSort/qss.cpp common/common.cpp
+bss: bubbleSort/bss.cpp $(COMMON_SRCS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-qsp: quickSort/qsp.cpp common/common.cpp
-	$(CXX) $(CXXFLAGS) $(OMPFLAGS) -o $@ $^
-
-# Merge Sort Targets
-mss: mergeSort/mss.cpp common/common.cpp
+# Merge Sort Executables
+msp: mergeSort/msp.cpp $(COMMON_SRCS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-msp: mergeSort/msp.cpp common/common.cpp
-	$(CXX) $(CXXFLAGS) $(OMPFLAGS) -o $@ $^
-
-# Reference Target
-reference: reference.cpp common/common.cpp
+mss: mergeSort/mss.cpp $(COMMON_SRCS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-# Clean Targets
+# Quick Sort Executables
+qsp: quickSort/qsp.cpp $(COMMON_SRCS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+qss: quickSort/qss.cpp $(COMMON_SRCS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+reference: reference.cpp $(COMMON_SRCS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+test:
+	./bsp 100 42
+	./bss 100 42
+	./msp 100 42
+	./mss 100 42
+	./qsp 100 42
+	./qss 100 42
+	./reference 100 42
+
 clean:
-	rm -f bss bsp qss qsp mss msp reference
+	rm -f bsp bss msp mss qsp qss reference
+
+.PHONY: all test clean

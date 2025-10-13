@@ -99,11 +99,11 @@ int main(int argc, char** argv) {
     }
 
     // Display program information
-    std::cout << "=== OpenMP Sorting Algorithm ===" << std::endl;
+    std::cout << "OpenMP Sorting Algorithm" << std::endl;
     std::cout << "Algorithm: " << algorithmDescription << std::endl;
     std::cout << "Array Size: " << size << std::endl;
     std::cout << "Random Seed: " << seed << std::endl;
-    std::cout << "================================" << std::endl;
+    std::cout << "--------------------------------------------------" << std::endl;
 
     // Generate random array
     int* array = randNumArray(size, seed);

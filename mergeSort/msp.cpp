@@ -1,5 +1,4 @@
 #include "../common/common.h"
-#include <omp.h>   // OpenMP header
 
 void merge(int *array, int left, int mid, int right) {
     int n1 = mid - left + 1;
@@ -24,18 +23,18 @@ void merge(int *array, int left, int mid, int right) {
     delete[] R;
 }
 
-void mergeSort(int *array, int left, int right, int depth=0) {
+void mergeSort(int *array, int left, int right, int depth = 0) {
     if (left < right) {
         int mid = left + (right - left) / 2;
         // Limit depth to avoid too many threads
         if (depth < 4) {
-            #pragma omp task shared(array)
+#pragma omp task shared(array)
             mergeSort(array, left, mid, depth + 1);
 
-            #pragma omp task shared(array)
+#pragma omp task shared(array)
             mergeSort(array, mid + 1, right, depth + 1);
 
-            #pragma omp taskwait
+#pragma omp taskwait
         } else {
             // Beyond a certain depth, do it serially
             mergeSort(array, left, mid, depth + 1);
@@ -54,7 +53,7 @@ int main(int argc, char **argv) {
         seed = std::stoi(argv[2]);
     } else {
         // Interactive mode
-        std::cout << "=== Parallel Merge Sort ===" << std::endl;
+        std::cout << "Parallel Merge Sort" << std::endl;
         size = getUserInput();
         std::cout << "Enter seed value for random number generation: ";
         std::cin >> seed;
@@ -76,9 +75,9 @@ int main(int argc, char **argv) {
     printArray(array, size, "Random Array");
 
     auto start = std::chrono::high_resolution_clock::now();
-    #pragma omp parallel
+#pragma omp parallel
     {
-        #pragma omp single
+#pragma omp single
         mergeSort(array, 0, size - 1);
     }
     auto end = std::chrono::high_resolution_clock::now();

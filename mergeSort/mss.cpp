@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
         seed = std::stoi(argv[2]);
     } else {
         // Interactive mode
-        std::cout << "=== Serial Merge Sort ===" << std::endl;
+        std::cout << "Serial Merge Sort" << std::endl;
         size = getUserInput();
         std::cout << "Enter seed value for random number generation: ";
         std::cin >> seed;
