@@ -1,4 +1,4 @@
-CXX = g++
+CXX = g++-15
 CXXFLAGS = -Wall -std=c++14 -O3 -Icommon
 OMPFLAGS = -fopenmp
 
@@ -12,21 +12,21 @@ parallel: bsp msp qsp
 
 # Bubble Sort Executables
 bsp: bubbleSort/bsp.cpp $(COMMON_SRCS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) $(OMPFLAGS) -o $@ $^
 
 bss: bubbleSort/bss.cpp $(COMMON_SRCS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 # Merge Sort Executables
 msp: mergeSort/msp.cpp $(COMMON_SRCS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) $(OMPFLAGS) -o $@ $^
 
 mss: mergeSort/mss.cpp $(COMMON_SRCS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 # Quick Sort Executables
 qsp: quickSort/qsp.cpp $(COMMON_SRCS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) $(OMPFLAGS) -o $@ $^
 
 qss: quickSort/qss.cpp $(COMMON_SRCS)
 	$(CXX) $(CXXFLAGS) -o $@ $^

@@ -1,10 +1,26 @@
 #include "../common/common.h"
+#include <omp.h>
 
-void bubbleSort(int *array, int size) {
-    for (int i = 0; i < size - 1; i++) {
-        for (int j = 0; j < size - i - 1; j++) {
-            if (array[j] > array[j + 1]) {
-                std::swap(array[j], array[j + 1]);
+void bubbleSort_parallel(int *array, int size) {
+    bool sorted = false;
+    while (!sorted) {
+        sorted = true;
+
+        // Odd phase
+#pragma omp parallel for
+        for (int i = 1; i < size - 1; i += 2) {
+            if (array[i] > array[i + 1]) {
+                std::swap(array[i], array[i + 1]);
+                sorted = false;
+            }
+        }
+
+        // Even phase
+#pragma omp parallel for
+        for (int i = 0; i < size - 1; i += 2) {
+            if (array[i] > array[i + 1]) {
+                std::swap(array[i], array[i + 1]);
+                sorted = false;
             }
         }
     }
@@ -38,7 +54,7 @@ int main(int argc, char **argv) {
     printArray(array, size, "Random Array");
 
     auto start = std::chrono::high_resolution_clock::now();
-    bubbleSort(array, size);
+    bubbleSort_parallel(array, size);
     auto end = std::chrono::high_resolution_clock::now();
 
     printArray(array, size, "Sorted Array");
