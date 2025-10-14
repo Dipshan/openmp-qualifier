@@ -1,5 +1,4 @@
 #include "../common/common.h"
-#include <omp.h> // Include the OpenMP header
 
 int partition(int *array, int low, int high) {
     int pivot = array[high];
@@ -18,13 +17,13 @@ int partition(int *array, int low, int high) {
 void quickSort_parallel(int *array, int low, int high) {
     if (low < high) {
         int pi = partition(array, low, high);
-        
+
         // Create parallel tasks for the recursive calls
-        #pragma omp task
+#pragma omp task
         {
             quickSort_parallel(array, low, pi - 1);
         }
-        #pragma omp task
+#pragma omp task
         {
             quickSort_parallel(array, pi + 1, high);
         }
@@ -39,19 +38,19 @@ int main(int argc, char **argv) {
         std::cerr << "usage: " << argv[0] << " [amount of random nums to generate] [seed value for rand]" << std::endl;
         return -1;
     }
-    
+
     size = std::stoi(argv[1]);
     seed = std::stoi(argv[2]);
 
     int *array = randNumArray(size, seed);
 
     auto start = std::chrono::high_resolution_clock::now();
-    
+
     // Create a parallel region for the tasks to run in
-    #pragma omp parallel
+#pragma omp parallel
     {
         // Have a single thread start the initial sort call
-        #pragma omp single nowait
+#pragma omp single nowait
         {
             quickSort_parallel(array, 0, size - 1);
         }

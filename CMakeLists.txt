@@ -11,11 +11,11 @@ set(COMMON_SOURCES common/common.cpp)
 
 # Bubble Sort Executables
 add_executable(bss bubbleSort/bss.cpp ${COMMON_SOURCES})
-add_executable(bbp bubbleSort/bsp.cpp ${COMMON_SOURCES}
+add_executable(bsp bubbleSort/bsp.cpp ${COMMON_SOURCES}
         main.cpp)
 if(OpenMP_CXX_FOUND)
-    target_link_libraries(bbp OpenMP::OpenMP_CXX)
-    target_compile_definitions(bbp PRIVATE _OPENMP)
+    target_link_libraries(bsp OpenMP::OpenMP_CXX)
+    target_compile_definitions(bsp PRIVATE _OPENMP)
 endif()
 
 # Quick Sort Executables
@@ -39,7 +39,7 @@ add_executable(reference reference.cpp ${COMMON_SOURCES})
 
 # Include directories
 target_include_directories(bss PRIVATE common)
-target_include_directories(bbp PRIVATE common)
+target_include_directories(bsp PRIVATE common)
 target_include_directories(qss PRIVATE common)
 target_include_directories(qsp PRIVATE common)
 target_include_directories(mss PRIVATE common)

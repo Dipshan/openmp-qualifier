@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
         seed = std::stoi(argv[2]);
     } else {
         // Interactive mode
-        std::cout << "=== STL Sort Reference ===" << std::endl;
+        std::cout << "STL Sort Reference" << std::endl;
         size = getUserInput();
         std::cout << "Enter seed value for random number generation: ";
         std::cin >> seed;

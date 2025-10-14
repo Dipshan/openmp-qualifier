@@ -14,12 +14,10 @@ int main(int argc, char **argv) {
     int size, seed;
 
     if (argc == 3) {
-        // Command line mode
         size = std::stoi(argv[1]);
         seed = std::stoi(argv[2]);
     } else {
-        // Interactive mode
-        std::cout << "=== Serial Bubble Sort ===" << std::endl;
+        std::cout << "Serial Bubble Sort" << std::endl;
         size = getUserInput();
         std::cout << "Enter seed value for random number generation: ";
         std::cin >> seed;

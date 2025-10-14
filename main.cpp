@@ -26,8 +26,8 @@ struct SortAlgorithm {
 
 // Array of available sorting algorithms
 SortAlgorithm algorithms[] = {
-    {"bbs", runBubbleSortSerial, "Bubble Sort Serial"},
-    {"bbp", runBubbleSortParallel, "Bubble Sort Parallel"},
+    {"bss", runBubbleSortSerial, "Bubble Sort Serial"},
+    {"bsp", runBubbleSortParallel, "Bubble Sort Parallel"},
     {"qss", runQuickSortSerial, "Quick Sort Serial"},
     {"qsp", runQuickSortParallel, "Quick Sort Parallel"},
     {"mss", runMergeSortSerial, "Merge Sort Serial"},
@@ -46,7 +46,7 @@ void printUsage(const std::string& programName) {
     }
     std::cerr << std::endl;
     std::cerr << "Examples:" << std::endl;
-    std::cerr << "  " << programName << " bbs 10000 42" << std::endl;
+    std::cerr << "  " << programName << " bss 10000 42" << std::endl;
     std::cerr << "  " << programName << " qsp 50000 123" << std::endl;
 }
 
@@ -99,11 +99,11 @@ int main(int argc, char** argv) {
     }
 
     // Display program information
-    std::cout << "=== OpenMP Sorting Algorithm ===" << std::endl;
+    std::cout << "OpenMP Sorting Algorithm" << std::endl;
     std::cout << "Algorithm: " << algorithmDescription << std::endl;
     std::cout << "Array Size: " << size << std::endl;
     std::cout << "Random Seed: " << seed << std::endl;
-    std::cout << "================================" << std::endl;
+    std::cout << "--------------------------------------------------" << std::endl;
 
     // Generate random array
     int* array = randNumArray(size, seed);
