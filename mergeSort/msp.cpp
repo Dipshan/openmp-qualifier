@@ -1,4 +1,5 @@
 #include "../common/common.h"
+#include <omp.h>
 
 void merge(int *array, int left, int mid, int right) {
     int n1 = mid - left + 1;

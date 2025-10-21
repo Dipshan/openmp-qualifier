@@ -1,7 +1,7 @@
 #include "common.h"
 
-const int MAX_ELEMENTS = 100000;
-const int MAX_RANDOM_VALUE = 100000;
+const int MAX_ELEMENTS = 10000000;
+const int MAX_RANDOM_VALUE = 10000000;
 
 int *randNumArray(const int size, const int seed) {
     srand(seed);
